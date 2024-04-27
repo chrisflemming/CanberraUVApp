@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity, RefreshControl, ScrollView, AppState, AppStateStatus, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, StyleSheet, AppState, AppStateStatus, View } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList, locationsData } from '../App';
 import { useFocusEffect } from '@react-navigation/native';
@@ -10,7 +9,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
 const MainScreen = ({ route, navigation }: Props) => {
   const [uvData, setUvData] = useState<{id: string, index: number | null}[]>([]);
-  const [refreshing, setRefreshing] = useState(false);
 
   const location = route.params?.location;
 
@@ -21,7 +19,7 @@ const MainScreen = ({ route, navigation }: Props) => {
 
     const interval = setInterval(() => {
       fetchUVIndex();
-    }, 60000);
+    }, 30000);
 
     return () => {
       clearInterval(interval); // Clear interval on component unmount
@@ -51,8 +49,6 @@ const MainScreen = ({ route, navigation }: Props) => {
   };
 
   const fetchUVIndex = async () => {
-    setRefreshing(true);
-
     try {
       const response = await fetch('https://uvdata.arpansa.gov.au/xml/uvvalues.xml', {
         method: 'GET'
@@ -71,7 +67,6 @@ const MainScreen = ({ route, navigation }: Props) => {
 
       if (!data) {
         console.error('Location not found');
-        setRefreshing(false);
         return;
       }
 
@@ -80,12 +75,10 @@ const MainScreen = ({ route, navigation }: Props) => {
     } catch (error) {
       console.error(error);
     }
-
-    setRefreshing(false);
   };
 
   const getUvIndex = () => {
-    return uvData ? uvData.find((loc : any) => loc.id === location)?.index : null;
+    return uvData ? uvData.find((loc : any) => loc.id === location)?.index : "--";
   }
 
   const getBackgroundColor = () => {
@@ -113,20 +106,14 @@ const MainScreen = ({ route, navigation }: Props) => {
   };
 
   return (
-    <View style={[{ flex: 1, backgroundColor: getBackgroundColor() }]}>
-      <ScrollView
-        contentContainerStyle={[styles.scrollView, { backgroundColor: getBackgroundColor() }]}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={fetchUVIndex} tintColor={"white"} />}
-      >
-        <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.uvIndex}>{getUvIndex()}</Text>
-        <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.bandName}>{getBandName()}</Text>
-      </ScrollView>
+    <View style={[{ flex: 1, flexGrow: 1, justifyContent: "center", backgroundColor: getBackgroundColor() }]}>
+      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.uvIndex}>{getUvIndex()}</Text>
+      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.bandName}>{getBandName()}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {flex: 1, flexGrow: 1, justifyContent: "center"},
   uvIndex: {textAlign: 'center', fontSize: 148, fontFamily: 'SpaceMono-Regular', color: 'white'},
   bandName: {textAlign: 'center', fontFamily: 'SpaceMono-Regular', fontSize: 64, color: 'white'},
 });
