@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList, locationsData } from '../App';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -30,20 +30,20 @@ const SettingsScreen = ({ route, navigation }: Props) => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <FlatList
-          data={locationsListOptions}
-          renderItem={({ item }) => (
-            <View>
-              <TouchableOpacity onPress={() => saveLocation(item.code)}>
-                <Text style={styles.label}>{item.id}</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={(item) => item.code}
-          />
-      </View>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'blue' }}>
+      <FlatList
+        data={locationsListOptions}
+        scrollEnabled={true}
+        contentContainerStyle={{backgroundColor: 'blue', alignItems: "center"}}
+        renderItem={({ item }) => (
+          <View>
+            <TouchableOpacity onPress={() => saveLocation(item.code)}>
+              <Text style={styles.label}>{item.id}</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        keyExtractor={(item) => item.code}
+        />
     </GestureHandlerRootView>
   );
 };

@@ -19,7 +19,7 @@ const MainScreen = ({ route, navigation }: Props) => {
 
     const interval = setInterval(() => {
       fetchUVIndex();
-    }, 30000);
+    }, 10000);
 
     return () => {
       clearInterval(interval); // Clear interval on component unmount

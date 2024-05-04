@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainScreen from './screens/MainScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import Svg, {Path} from 'react-native-svg';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AboutScreen from './screens/AboutScreen';
 
@@ -77,6 +77,7 @@ const App = () => {
             headerShadowVisible: false, 
             headerTitleStyle: {fontFamily: 'SpaceMono-Regular', fontSize: 32, color: 'white'},
             headerTitleAllowFontScaling: true,
+            headerTitleAlign: "center",
             headerLeft: () => (
               <TouchableOpacity style={styles.settingsButton} onPress={() => navigation.navigate('Settings')}>
                 {hamburgerIcon}
@@ -97,7 +98,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({ 
-  settingsButton: {paddingBottom: 10}
+  settingsButton: {paddingBottom: Platform.OS === 'ios' ? 10 : 0}
 });
 
 export default App;
