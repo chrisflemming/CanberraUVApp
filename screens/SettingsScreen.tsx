@@ -30,11 +30,11 @@ const SettingsScreen = ({ route, navigation }: Props) => {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'blue' }}>
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: 'blue', alignItems: 'center', paddingTop: 10 }}>
       <FlatList
         data={locationsListOptions}
         scrollEnabled={true}
-        contentContainerStyle={{backgroundColor: 'blue', alignItems: "center"}}
+        contentContainerStyle={{backgroundColor: 'blue', alignItems: "flex-start"}}
         renderItem={({ item }) => (
           <View>
             <TouchableOpacity onPress={() => saveLocation(item.code)}>

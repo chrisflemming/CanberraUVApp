@@ -1,9 +1,29 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
-import { StyleSheet, Text, View, Linking } from "react-native";
+import { StyleSheet, Text, View, Linking, ScrollView } from "react-native";
+import Svg, {Circle, G, Path, Rect, Use} from 'react-native-svg';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'About'>;
+
+const sunImage =
+    <Svg width="128" height="128" viewBox="-30 -30 60 60" fill="#fcdf03">
+        <Rect x="-30" y="-30" width="60" height="60" fill="blue" />
+        <G id="x">
+            <G id="y">
+                <Path id="z" d="m8,0-8,30-8-30 8-30" />
+                <Use xlinkHref="#z" transform="rotate(15)" />
+                <Use xlinkHref="#z" transform="rotate(30)" />
+                <Use xlinkHref="#z" transform="rotate(45)" />
+            </G>
+            <Use xlinkHref="#y" transform="rotate(60)" />
+            <Use xlinkHref="#y" transform="rotate(120)" />
+            <Use xlinkHref="#y" transform="rotate(180)" />
+            <Use xlinkHref="#y" transform="rotate(240)" />
+            <Use xlinkHref="#y" transform="rotate(300)" />
+        </G>
+        <Circle stroke="blue" strokeWidth="1" r="16" />
+    </Svg>
 
 const AboutScreen = ({ route, navigation }: Props) => {
     const handlePress = (url: string) => {
@@ -11,7 +31,10 @@ const AboutScreen = ({ route, navigation }: Props) => {
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
+            <View style={{ flex: 1, alignItems: 'center', paddingBottom: 40 }}>
+                {sunImage}
+            </View>
             <Text style={styles.text}>
                 Developed by Chris Flemming
                 {"\n"}
@@ -23,7 +46,7 @@ const AboutScreen = ({ route, navigation }: Props) => {
                 <Text style={styles.link} onPress={() => handlePress('https://www.arpansa.gov.au/')}>
                 ARPANSA
                 </Text>
-                . UVI readings are real-time, provided by ARPANSA's network of detectors located around Australia.
+                . UVI readings are real-time, provided by ARPANSA's network of sensors located around Australia.
                 See&nbsp;
                 <Text style={styles.link} onPress={() => handlePress('https://www.arpansa.gov.au/our-services/monitoring/ultraviolet-radiation-monitoring/ultraviolet-radation-data-information#Disclaimer')}>
                 Disclaimer
@@ -31,22 +54,22 @@ const AboutScreen = ({ route, navigation }: Props) => {
                 {"\n\n"}
                 The UV Index is a measure of the intensity of UV radiation on the Earth's surface that is relevant to effects on the human skin and eyes.
                 {"\n\n"}
-                The World Health Organization (WHO) recommends using sun protection when outdoors and the UV Index is 3 or above.
+                The World Health Organization (WHO) recommends using sun protection if you are outdoors and the UV Index is 3 or above.
                 {"\n\n"}
                 See&nbsp;
                 <Text style={styles.link} onPress={() => handlePress('https://www.who.int/news-room/fact-sheets/detail/ultraviolet-radiation')}>
                     WHO Fact Sheet on Ultra Violet Radiation
                 </Text>.
             </Text>
-        </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {backgroundColor: 'white', flex: 1, flexGrow: 1, padding: 10},
-    text: {fontSize: 18, fontFamily: 'InterVariable', color: 'black'},
+    container: {backgroundColor: 'blue', flex: 1, flexGrow: 1, padding: 10},
+    text: {fontSize: 18, fontFamily: 'InterVariable', color: 'white'},
     link: {
-        color: 'blue', 
+        color: 'white', 
         textDecorationLine: 'underline',
     }
   });

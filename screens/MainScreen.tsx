@@ -77,12 +77,24 @@ const MainScreen = ({ route, navigation }: Props) => {
     }
   };
 
-  const getUvIndex = () => {
-    return uvData ? uvData.find((loc : any) => loc.id === location)?.index : "--";
+  const doGetUVIndex = () => {
+    let uvIndex = uvData ? uvData.find((loc : any) => loc.id === location)?.index : null;
+
+    if (uvIndex === null || uvIndex === undefined) return null;
+    return uvIndex;
+  }
+
+  const getUvIndexForDisplay = () => {
+    let uvi = doGetUVIndex();
+    if (uvi === null) {
+      return "--";
+    } else {
+      return uvi;
+    }
   }
 
   const getBackgroundColor = () => {
-    let uvIndex = uvData ? uvData.find((loc : any) => loc.id === location)?.index : null;
+    let uvIndex = doGetUVIndex();
 
     if (uvIndex === null || uvIndex === undefined) return 'gray';
     if (uvIndex === 0) return 'black'
@@ -94,7 +106,9 @@ const MainScreen = ({ route, navigation }: Props) => {
   };
 
   const getBandName = () => {
-    let uvIndex = uvData ? uvData.find((loc : any) => loc.id === location)?.index : null;
+    if (uvData.length === 0) return "Loading...";
+
+    let uvIndex = doGetUVIndex();
 
     if (uvIndex === null || uvIndex === undefined) return "No data";
     if (uvIndex === 0) return 'Nil';
@@ -107,7 +121,7 @@ const MainScreen = ({ route, navigation }: Props) => {
 
   return (
     <View style={[{ flex: 1, flexGrow: 1, justifyContent: "center", backgroundColor: getBackgroundColor() }]}>
-      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.uvIndex}>{getUvIndex()}</Text>
+      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.uvIndex}>{getUvIndexForDisplay()}</Text>
       <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.bandName}>{getBandName()}</Text>
     </View>
   );
