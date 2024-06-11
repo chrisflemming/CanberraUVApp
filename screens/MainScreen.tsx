@@ -35,8 +35,18 @@ const MainScreen = ({ route, navigation }: Props) => {
   );
 
   useLayoutEffect(() => {
+    let headerText;
+    if (location) {
+      headerText = locationsData[location].name;
+      if (headerText.length <= 10) {
+        headerText = headerText + " UVI";
+      } 
+    } else {
+      headerText = "No location set";
+    }
+
     navigation.setOptions({
-      headerTitle: location ? locationsData[location].name + " UVI" : "No location set",
+      headerTitle: headerText,
       headerStyle: { backgroundColor: getBackgroundColor() }
     });
   });
@@ -121,15 +131,23 @@ const MainScreen = ({ route, navigation }: Props) => {
 
   return (
     <View style={[{ flex: 1, flexGrow: 1, justifyContent: "center", backgroundColor: getBackgroundColor() }]}>
-      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.uvIndex}>{getUvIndexForDisplay()}</Text>
+      <Text adjustsFontSizeToFit={true} numberOfLines={1} style={[styles.uvIndex, {fontSize: getUVIFontSize(doGetUVIndex())}]}>{getUvIndexForDisplay()}</Text>
       <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.bandName}>{getBandName()}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  uvIndex: {textAlign: 'center', fontSize: 148, fontFamily: 'SpaceMono-Regular', color: 'white'},
+  uvIndex: {textAlign: 'center', fontFamily: 'SpaceMono-Regular', color: 'white'},
   bandName: {textAlign: 'center', fontFamily: 'SpaceMono-Regular', fontSize: 64, color: 'white'},
 });
+
+const getUVIFontSize = (uviValue : number|null) => {
+  if (uviValue !== null && uviValue > 10) {
+    return 132;
+  } else {
+    return 148;
+  }
+}
 
 export default MainScreen;

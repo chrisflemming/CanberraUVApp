@@ -26,7 +26,7 @@ const SettingsScreen = ({ route, navigation }: Props) => {
   const saveLocation = async (locationCode : string) => {
     setLocation(locationCode);
     await AsyncStorage.setItem('location', locationCode);
-    navigation.navigate('Main', { location: locationCode });
+    navigation.replace('Main', { location: locationCode });
   };
 
   return (

@@ -90,7 +90,7 @@ const App = () => {
             )}
           )}
           />
-        <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Select Location', headerTintColor: 'white', headerShadowVisible: false, headerBackTitleVisible: false, headerTitleStyle: {fontFamily: 'SpaceMono-Regular', fontSize: 32, color: 'white'}, headerStyle: {backgroundColor: 'blue'}}} />
+        <Stack.Screen name="Settings" component={SettingsScreen} options={{title: 'Select Location', headerTintColor: 'white', headerShadowVisible: false, headerBackTitleVisible: false, headerTitleStyle: {fontFamily: 'SpaceMono-Regular', fontSize: 28, color: 'white'}, headerStyle: {backgroundColor: 'blue'}}} />
         <Stack.Screen name="About" component={AboutScreen} options={{title: 'About',  headerTintColor: 'white', headerShadowVisible: false, headerBackTitleVisible: false, headerTitleStyle: {fontFamily: 'SpaceMono-Regular', fontSize: 32, color: 'white'}, headerStyle: {backgroundColor: 'blue'}}} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -98,7 +98,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({ 
-  settingsButton: {paddingBottom: Platform.OS === 'ios' ? 10 : 0}
+  settingsButton: {paddingBottom: Platform.OS === 'ios' ? 10 : 0, paddingTop: Platform.OS === 'android' ? 5 : 0}
 });
 
 export default App;
