@@ -23,24 +23,24 @@ interface LocationsData {
   [key: string]: Location;
 }
 
-export const locationsData : LocationsData = {
-  syd: { name: 'Sydney', state: 'NSW'},
-  mel: { name: 'Melbourne', state: 'VIC'},
-  bri: { name: 'Brisbane', state: 'QLD'},
-  per: { name: 'Perth', state: 'WA'},
-  adl: { name: 'Adelaide', state: 'SA'},
-  can: { name: 'Canberra', state: 'ACT'},
-  kin: { name: 'Hobart', state: 'TAS'},
-  dar: { name: 'Darwin', state: 'NT'},
-  ali: { name: 'Alice Springs', state: 'NT'},
-  emd: { name: 'Emerald', state: 'QLD'},
-  gco: { name: 'Gold Coast', state: 'QLD'},
-  new: { name: 'Newcastle', state: 'NSW'},
-  tow: { name: 'Townsville', state: 'QLD'},
-  cas: { name: 'Casey', state: 'AAT'},
-  dav: { name: 'Davis', state: 'AAT'},
-  mcq: { name: 'Macquarie Is', state: ''},
-  maw: { name: 'Mawson', state: 'AAT'}
+export const locationsData: LocationsData = {
+  adl: { name: 'Adelaide', state: 'SA' },
+  ali: { name: 'Alice Springs', state: 'NT' },
+  bri: { name: 'Brisbane', state: 'QLD' },
+  can: { name: 'Canberra', state: 'ACT' },
+  cas: { name: 'Casey', state: 'AAT' },
+  dar: { name: 'Darwin', state: 'NT' },
+  dav: { name: 'Davis', state: 'AAT' },
+  emd: { name: 'Emerald', state: 'QLD' },
+  gco: { name: 'Gold Coast', state: 'QLD' },
+  kin: { name: 'Hobart', state: 'TAS' },
+  mcq: { name: 'Macquarie Is', state: 'TAS' },
+  maw: { name: 'Mawson', state: 'AAT' },
+  mel: { name: 'Melbourne', state: 'VIC' },
+  new: { name: 'Newcastle', state: 'NSW' },
+  per: { name: 'Perth', state: 'WA' },
+  syd: { name: 'Sydney', state: 'NSW' },
+  tow: { name: 'Townsville', state: 'QLD' }
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
